@@ -349,7 +349,7 @@ public class Periodico {
 					 if(smax.length()>0)
 					 {
 						 double valor=Double.parseDouble(smax);
-						 rs.updateDouble("máxima", maxima);
+						 rs.updateDouble("máxima", valor);
 					 }
 					 
 					 System.out.print("¿Mínima? ["+minima+"]");
@@ -357,7 +357,7 @@ public class Periodico {
 					 if(smin.length()>0)
 						 rs.updateDouble("mínima", Double.parseDouble(smin));
 						 
-						 System.out.print("¿Prónostico? ["+Pronostico+"]");
+						 System.out.print("¿Prónostico? ["+pronostico+"]");
 						 pronostico=teclado.nextLine().trim();
 						 if(pronostico.length()>0)
 							 rs.updateString("Pronóstico", pronostico);

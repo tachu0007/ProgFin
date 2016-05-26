@@ -299,5 +299,121 @@ public class Periodico {
 	}
 	
 	//Consulta SQL parametrizada por concatenacion (statement)
+	 public void modificarUnoAUno()
+	 {
+		 int cont=0;,modificados=0; 
+		 System.out.println("\n [Modificar(uno a uno)/(Empieza por)]");
+		 
+		 System.out.print("¿Localidad? (Empieza por) ");
+		 String buscar = teclado.nextLine().trim().toLowerCase();
+		 
+		 String s ="SELECT * FROM Localidades WHERE localidad LIKE '"+buscar+"%' ORDER BY localidad";
+		 
+		 try
+		 (
+				 Connection cn = this.conectar();
+					Statement st=cn.createStatement(
+							ResultSet.TYPE_SCROLL_SENSITIVE,
+							ResultSet.CONCUR_UPDATABLE);
+					ResultSet rs= st.executeQuery(consulta);
+		 )
+		 {
+			 while(rs.next())
+			 {
+				 if(cont==0)
+					 cabecera("Modificador");
+				 cont++;
+				 
+				 //Ver datos
+				 String localidad=rs.getString("localidad");
+				 String pronostico= rs.getString("pronóstico");
+				 String maxima=rs.getDouble("máxima");
+				 String minima=rs.getDouble("mínima");
+				 
+				 //Salida en consola
+				 System.out.printf("Localidad: %s\nMáxima: %6.2f\nMínima: %6.2f\nPrónostico: %-20s\n", localidad, maxima, minima, pronostico);
+				 
+				 System.out.print("¿Modificar? (s/n)");
+				 char resp=teclado.nextLine().toLowerCase().trim().charAt();
+				 if(resp=='s')
+				 {
+					 System.out.print("¿Localidad?["+localidad+"]");
+					 localidad=teclado.nextLine().trim();
+					 	if (localidad.length()>0)
+					 	{
+					 		rs.updateString("localidad", localidad);
+					 	}
+					 	
+					 System.out.print("¿Máxima? ["+maxima+"]");
+					 String smax=teclado.nextLine().trim();
+					 if(smax.length()>0)
+					 {
+						 double valor=Double.parseDouble(smax);
+						 rs.updateDouble("máxima", maxima);
+					 }
+					 
+					 System.out.print("¿Mínima? ["+minima+"]");
+					 String smin = teclado.nextLine().trim();
+					 if(smin.length()>0)
+						 rs.updateDouble("mínima", Double.parseDouble(smin));
+						 
+						 System.out.print("¿Prónostico? ["+Pronostico+"]");
+						 pronostico=teclado.nextLine().trim();
+						 if(pronostico.length()>0)
+							 rs.updateString("Pronóstico", pronostico);
+						 
+						 rs.updateRow();
+						 modificados++;
+				 }
+			 }
+		 }
+		 	catch(SQLException e)
+			{
+				System.out.println("Error BD: "+e.getMessage());
+			}
+			catch(Exception e)
+			{
+				System.out.print("Error: "+e.getMessage());
+				e.printStackTrace();
+			}
+			System.out.printf("Modificados: %2d localidades de %2d\n", modificados, cont);
+	 }
+	 
+	 //Consulta SQL. Procedimiento almacenado (CallableStatement)
+	 
+	 // Medias()
+	 //SELECT AVG(Localidades.Mínima) AS MediaMin, AVG(Localidades.Máxima) AS MediaMax
+	 //FROM Localidades;
+	 
+	 public void medias()
+	 {
+		 try(
+				 Connection cn=this.conectar();
+				 CallableStatement cs=cn.prepareCall("{call Medias}");
+				 ResultSet rs=cs.executeQuery(); 
+				 )
+		 {
+			 if (rs.next())
+			 {
+				 System.out.println("\n [Medkas de temperatura]");
+				 
+				 System.out.printf("\nMáxima> Media: %5.2f", rs.getDouble("MediaMax"));
+				 System.out.printf("\nMínimas> Media: %5.2f\n", rs.getDouble("MediaMin"));
+			 }
+			 else
+			 {
+				 System.out.println("Sin resultados");
+			 }
+		 }
+		 catch(SQLException e)
+			{
+				System.out.println("Error BD: "+e.getMessage());
+			}
+		 catch(Exception e)
+			{
+				System.out.print("Error: "+e.getMessage());
+				e.printStackTrace();
+			}
+	 }
 	 
 }

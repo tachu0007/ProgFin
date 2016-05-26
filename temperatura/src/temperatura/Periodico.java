@@ -275,7 +275,7 @@ public class Periodico {
 				System.out.printf("%-20s %6.2f %6.2f %-20s\n", localidad, maxima, minima, pronostico);
 				
 				System.out.print("¿Eliminar? (s/n)");
-				char resp=teclado.nextLine().toLowerCase().trim().chartAt(0);
+				char resp=teclado.nextLine().toLowerCase().trim().charAt(0);
 				if(resp=='s')
 				{
 					rs.deleteRow();
@@ -301,7 +301,7 @@ public class Periodico {
 	//Consulta SQL parametrizada por concatenacion (statement)
 	 public void modificarUnoAUno()
 	 {
-		 int cont=0;,modificados=0; 
+		 int cont=0, modificados=0; 
 		 System.out.println("\n [Modificar(uno a uno)/(Empieza por)]");
 		 
 		 System.out.print("¿Localidad? (Empieza por) ");
@@ -315,7 +315,7 @@ public class Periodico {
 					Statement st=cn.createStatement(
 							ResultSet.TYPE_SCROLL_SENSITIVE,
 							ResultSet.CONCUR_UPDATABLE);
-					ResultSet rs= st.executeQuery(consulta);
+					ResultSet rs= st.executeQuery(s);
 		 )
 		 {
 			 while(rs.next())
@@ -327,14 +327,14 @@ public class Periodico {
 				 //Ver datos
 				 String localidad=rs.getString("localidad");
 				 String pronostico= rs.getString("pronóstico");
-				 String maxima=rs.getDouble("máxima");
-				 String minima=rs.getDouble("mínima");
+				 double maxima=rs.getDouble("máxima");
+				 double minima=rs.getDouble("mínima");
 				 
 				 //Salida en consola
 				 System.out.printf("Localidad: %s\nMáxima: %6.2f\nMínima: %6.2f\nPrónostico: %-20s\n", localidad, maxima, minima, pronostico);
 				 
 				 System.out.print("¿Modificar? (s/n)");
-				 char resp=teclado.nextLine().toLowerCase().trim().charAt();
+				 char resp=teclado.nextLine().toLowerCase().trim().charAt(0);
 				 if(resp=='s')
 				 {
 					 System.out.print("¿Localidad?["+localidad+"]");
@@ -349,7 +349,7 @@ public class Periodico {
 					 if(smax.length()>0)
 					 {
 						 double valor=Double.parseDouble(smax);
-						 rs.updateDouble("máxima", maxima);
+						 rs.updateDouble("máxima", valor);
 					 }
 					 
 					 System.out.print("¿Mínima? ["+minima+"]");
@@ -357,7 +357,7 @@ public class Periodico {
 					 if(smin.length()>0)
 						 rs.updateDouble("mínima", Double.parseDouble(smin));
 						 
-						 System.out.print("¿Prónostico? ["+Pronostico+"]");
+						 System.out.print("¿Prónostico? ["+pronostico+"]");
 						 pronostico=teclado.nextLine().trim();
 						 if(pronostico.length()>0)
 							 rs.updateString("Pronóstico", pronostico);

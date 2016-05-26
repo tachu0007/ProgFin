@@ -12,32 +12,32 @@ public class Principal {
 		}
 		catch (Exception e)
 		{
-			System.err.println("Error: "e.getMessage());
+			System.err.println("Error: "+e.getMessage());
 			//fin del programa
 			return;
 		}
 		
 		//Menú
 		MiMenu menu = new MiMenu();
-		menu.añadir("Listado");
-		menu.añadir("Nuevo");
-		menu.añadir("Modificar (uno a uno)");
-		menu.añadir("Eliminar (uno a uno)");
-		menu.añadir("Empieza por");
-		menu.añadir("Incluye");
-		menu.añadir("Medias");
-		menu.añadir("Salida");
+		menu.add("Listado");
+		menu.add("Nuevo");
+		menu.add("Modificar (uno a uno)");
+		menu.add("Eliminar (uno a uno)");
+		menu.add("Empieza por");
+		menu.add("Incluye");
+		menu.add("Medias");
+		menu.add("Salida");
 		
-		MiMenu menu reducido = new MiMenu();
-		reducido.añadir("Nuevo");
-		reducido.añadir("Salida");
+		MiMenu reducido = new MiMenu();
+		reducido.add("Nuevo");
+		reducido.add("Salida");
 		
-		booblean salir = false;
+		boolean salir = false;
 		do
 		{
 			if (per. estaVacia()==true)
 			{
-				Systme.out.println("BD vacía");
+				System.out.println("BD vacía");
 				switch(reducido.ver("Periódico DAM"))
 				{
 				case 1:per.añadir();

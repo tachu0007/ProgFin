@@ -1,4 +1,4 @@
-package temperatura.FicherosMiMenu;
+package temperatura;
 
 import java.util.*;
 

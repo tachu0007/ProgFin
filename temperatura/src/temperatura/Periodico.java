@@ -17,7 +17,7 @@ public class Periodico {
 	private Connection conectar() throws SQLException
 	{
 		String CadenaConexion = "jdbc:mysql://localhost:3306/periodico"
-								+"?useUnicode=true&characterEncoding=8";
+								+"?useUnicode=true&characterEncoding=UTF-8";
 		String usuario="peri";
 		String passwd="peri";
 		
@@ -108,7 +108,7 @@ public class Periodico {
 					encabezado(); 
 				cont++;
 				String localidad=rs.getString("Localidad");
-				String pronostico=rs.getString("Prónostico");
+				String pronostico=rs.getString("Pronóstico");
 				double maxima=rs.getDouble("Máxima");
 				double minima=rs.getDouble("Mínima");
 				

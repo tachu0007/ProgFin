@@ -56,6 +56,7 @@ public class Periodico {
 	{
 		String consulta="SELECT * FROM Localidades ORDER BY Localidad";
 		try(
+				//Conexion con la base de datos
 				 Connection cn = this.conectar();
 				Statement st=cn.createStatement(
 						ResultSet.TYPE_SCROLL_SENSITIVE,
@@ -63,7 +64,9 @@ public class Periodico {
 				ResultSet rs= st.executeQuery(consulta);
 			)
 		{
-			System.out.println("\n [Nuevo]");
+			
+			
+			System.out.print("Localidad: ");
 			String localidad=teclado.nextLine().trim();
 			
 			System.out.print("Mínima: ");

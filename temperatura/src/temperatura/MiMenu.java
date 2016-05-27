@@ -27,7 +27,7 @@ public class MiMenu {
 		boolean sw = true;
 		do {
 			try {
-				System.out.print("Â¿OpciÃ³n? (1-"+menu.size()+")? ");
+				System.out.print("¿Opción? (1-"+menu.size()+")? ");
 				opcion = Integer.parseInt(teclado.nextLine());
 				if (!(opcion>=1 && opcion<=menu.size()))
 					throw new Exception("Introduzca un valor entre 1 y "+menu.size());
@@ -43,7 +43,7 @@ public class MiMenu {
 	
 	public int ver()
 	{
-		return this.ver("MenÃº");
+		return this.ver("Menu");
 	}
 	
 	public int ver(String encabezado)
